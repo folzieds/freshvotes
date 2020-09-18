@@ -2,6 +2,7 @@ package com.phos.freshvotes.controller;
 
 import com.phos.freshvotes.Entity.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,12 +21,14 @@ public class LoginController {
     }
 
     @GetMapping("/register")
-    public String register(){
+    public String register(Model model){
+        model.addAttribute("user",new User());
         return "register";
     }
 
-    @PostMapping
-    public String createAccount(@ModelAttribute User user){
+    @PostMapping("/register")
+    public String createAccount(User user){
+        System.out.println(user);
         return "redirect:/login";
     }
 }
