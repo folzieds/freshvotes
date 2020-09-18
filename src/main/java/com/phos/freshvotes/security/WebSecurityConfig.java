@@ -30,18 +30,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(getPasswordEncoder());
-
-               /* .inMemoryAuthentication()
-                .passwordEncoder(getPasswordEncoder())
-                .withUser("fp@phos.com")
-                .password(getPasswordEncoder().encode("password"))
-                .roles("USER");*/
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                     .antMatchers("/").permitAll()
+                    .antMatchers("/register").permitAll()
                     .anyRequest().hasRole("USER").and()
                 .formLogin()
                     .loginPage("/login")
