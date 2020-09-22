@@ -14,12 +14,16 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Override
-    public boolean create(User user) {
+    public Product create(User user){
         Product product = new Product();
 
-        return false;
+        product.setPublished(false);
+        product.setUser(user);
+
+        return productRepository.save(product);
+
     }
 }

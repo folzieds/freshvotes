@@ -1,5 +1,6 @@
 package com.phos.freshvotes.service;
 
+import com.phos.freshvotes.Entity.Product;
 import com.phos.freshvotes.Entity.User;
 import org.springframework.stereotype.Service;
 
@@ -9,5 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ProductService {
-    boolean create(User user);
+
+    Product create(User user);
 }

@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -19,14 +20,18 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/products")
-    public String product(Model model){
+    public String products(Model model){
+        return "product";
+    }
+
+    @GetMapping("/products/{id}")
+    public  String product(Model model, @PathVariable Long id){
         return "product";
     }
 
     @PostMapping("/products")
     public String createProduct(@AuthenticationPrincipal User user){
 
-        productService.create(user);
-        return "redirect:/products";
+        return "redirect:/products/" + productService.create(user).getId();
     }
 }
