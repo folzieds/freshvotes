@@ -2,6 +2,7 @@ package com.phos.freshvotes.service;
 
 import com.phos.freshvotes.Entity.Product;
 import com.phos.freshvotes.Entity.User;
+import com.phos.freshvotes.exceptions.ProductServiceException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,4 +13,6 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
 
     Product create(User user);
+
+    Product getProduct(Long id) throws ProductServiceException;
 }
