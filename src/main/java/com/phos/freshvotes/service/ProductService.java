@@ -15,4 +15,6 @@ public interface ProductService {
     Product create(User user);
 
     Product getProduct(Long id) throws ProductServiceException;
+
+    Product update(Long id, Product product) throws ProductServiceException;
 }

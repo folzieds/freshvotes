@@ -1,5 +1,6 @@
 package com.phos.freshvotes.controller;
 
+import com.phos.freshvotes.Entity.Product;
 import com.phos.freshvotes.Entity.User;
 import com.phos.freshvotes.exceptions.ProductServiceException;
 import com.phos.freshvotes.service.ProductService;
@@ -37,6 +38,12 @@ public class ProductController {
             response.sendError(HttpStatus.NOT_FOUND.value(),e.getMessage());
         }
         return "product";
+    }
+
+    @PostMapping("/products/{id}")
+    public String saveProduct(@PathVariable Long id, Product product){
+        
+        return "redirect:/products/" + product.getId();
     }
 
     @PostMapping("/products")

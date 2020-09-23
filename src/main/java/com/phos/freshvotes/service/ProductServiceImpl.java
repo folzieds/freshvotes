@@ -7,7 +7,6 @@ import com.phos.freshvotes.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 /**
@@ -40,6 +39,17 @@ public class ProductServiceImpl implements ProductService {
             return productOptional.get();
         }else{
             throw new ProductServiceException("Product with Id  "+ id +" was not found");
+        }
+    }
+
+    @Override
+    public Product update(Long id, Product product) throws ProductServiceException {
+        try {
+            Product tempProduct = getProduct(id);
+            tempProduct.setName(product.getName());
+            return productRepository.save(tempProduct);
+        } catch (ProductServiceException e) {
+            throw new ProductServiceException("Product with Id" + id + " could not be updated");
         }
     }
 }
