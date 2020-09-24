@@ -41,8 +41,12 @@ public class ProductController {
     }
 
     @PostMapping("/products/{id}")
-    public String saveProduct(@PathVariable Long id, Product product){
-        
+    public String saveProduct(@PathVariable Long id, Product product, Model model, HttpServletResponse response) throws IOException {
+        try {
+            model.addAttribute("product", productService.update(id,product));
+        } catch (ProductServiceException e) {
+            response.sendError(HttpStatus.NOT_FOUND.value(),e.getMessage());
+        }
         return "redirect:/products/" + product.getId();
     }
 

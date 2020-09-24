@@ -47,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             Product tempProduct = getProduct(id);
             tempProduct.setName(product.getName());
+            tempProduct.setPublished(product.getPublished());
             return productRepository.save(tempProduct);
         } catch (ProductServiceException e) {
             throw new ProductServiceException("Product with Id" + id + " could not be updated");
