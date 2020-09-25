@@ -7,6 +7,7 @@ import com.phos.freshvotes.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -52,5 +53,10 @@ public class ProductServiceImpl implements ProductService {
         } catch (ProductServiceException e) {
             throw new ProductServiceException("Product with Id" + id + " could not be updated");
         }
+    }
+
+    @Override
+    public List<Product> getProductByUsername(User user) {
+        return productRepository.findByUser(user);
     }
 }

@@ -26,8 +26,9 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/products")
-    public String products(Model model){
-        return "product";
+    public String products(@AuthenticationPrincipal User user,Model model){
+        model.addAttribute("products",productService.getProductByUsername(user));
+        return "products";
     }
 
     @GetMapping("/products/{id}")
