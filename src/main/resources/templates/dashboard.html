@@ -20,7 +20,9 @@
         </div>
         <div th:if="${products != null}">
             <div class="row">
-                <h1>Products</h1>
+                <div class="col">
+                    <h1>Products</h1>
+                </div>
             </div>
             <div class="row" th:each="product: ${products}">
                 <div class="col">
