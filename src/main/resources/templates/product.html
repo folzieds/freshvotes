@@ -6,6 +6,7 @@
     <title>Freshvotes Product</title>
 </head>
 <body>
+    <div th:replace="fragments/header :: navigation"></div>
     <div class="container" th:if = "${product != null}">
         <h2>Products</h2>
         <form action="" method="post">
