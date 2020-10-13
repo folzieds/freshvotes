@@ -1,6 +1,7 @@
 package com.phos.freshvotes.service;
 
 import com.phos.freshvotes.Entity.Feature;
+import com.phos.freshvotes.exceptions.ProductServiceException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,5 +12,5 @@ public interface FeatureService {
 
     Feature getFeatures();
 
-    Feature createFeature(Long productId);
+    Feature createFeature(Long productId) throws ProductServiceException;
 }

@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 public class FeatureServiceImpl implements FeatureService {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @Autowired
-    FeatureRepository featureRepository;
+    private FeatureRepository featureRepository;
 
     @Override
     public Feature getFeatures() {
@@ -25,17 +25,17 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     @Override
-    public Feature createFeature(Long productId) {
+    public Feature createFeature(Long productId) throws ProductServiceException {
         try {
             Product product = productService.getProduct(productId);
 
             Feature feature = new Feature();
             feature.setProduct(product);
+            product.getFeatures().add(feature);
 
-            featureRepository.save(feature);
+            return featureRepository.save(feature);
         } catch (ProductServiceException e) {
-            e.printStackTrace();
+            throw new ProductServiceException("Product with Id" + productId + " could not be updated");
         }
-        return null;
     }
 }
