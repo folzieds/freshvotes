@@ -1,0 +1,15 @@
+package com.phos.freshvotes.service;
+
+import com.phos.freshvotes.Entity.Feature;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created by Folarin on 13/10/2020
+ */
+@Service
+public interface FeatureService {
+
+    Feature getFeatures();
+
+    Feature createFeature(Long productId);
+}
