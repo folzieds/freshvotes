@@ -44,6 +44,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product getProduct(String name) throws ProductServiceException {
+
+        Optional<Product> productOptional = productRepository.findByName(name);
+        if(productOptional.isPresent()){
+            return productOptional.get();
+        }else{
+            throw new ProductServiceException(name +" was not found");
+        }
+    }
+
+    @Override
     public Product update(Long id, Product product) throws ProductServiceException {
         try {
             Product tempProduct = getProduct(id);

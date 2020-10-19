@@ -18,6 +18,8 @@ public interface ProductService {
 
     Product getProduct(Long id) throws ProductServiceException;
 
+    Product getProduct(String name) throws ProductServiceException;
+
     Product update(Long id, Product product) throws ProductServiceException;
 
     List<Product> getProductByUsername(User user);

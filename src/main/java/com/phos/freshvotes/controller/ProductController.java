@@ -41,6 +41,12 @@ public class ProductController {
         return "product";
     }
 
+    @GetMapping("/products/{name}")
+    public String productUserView(Model model, @PathVariable String name) throws ProductServiceException {
+        productService.getProduct(name);
+        return "productUserView";
+    }
+
     @PostMapping("/products/{id}")
     public String saveProduct(@PathVariable Long id, Product product, Model model, HttpServletResponse response) throws IOException {
         try {
