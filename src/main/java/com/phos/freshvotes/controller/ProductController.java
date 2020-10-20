@@ -4,6 +4,8 @@ import com.phos.freshvotes.Entity.Product;
 import com.phos.freshvotes.Entity.User;
 import com.phos.freshvotes.exceptions.ProductServiceException;
 import com.phos.freshvotes.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,6 +24,8 @@ import java.io.IOException;
 @Controller
 public class ProductController {
 
+    private Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     @Autowired
     ProductService productService;
 
@@ -36,14 +40,20 @@ public class ProductController {
         try {
             model.addAttribute("product",productService.getProduct(id));
         } catch (ProductServiceException e) {
+            logger.error("Could not find product with Id " + id, e);
             response.sendError(HttpStatus.NOT_FOUND.value(),e.getMessage());
         }
         return "product";
     }
 
     @GetMapping("/products/{name}")
-    public String productUserView(Model model, @PathVariable String name) throws ProductServiceException {
-        productService.getProduct(name);
+    public String productUserView(Model model, @PathVariable String name) {
+        try {
+            Product product = productService.getProduct(name);
+            model.addAttribute("product",product);
+        } catch (ProductServiceException e) {
+            logger.error("Could not find product...", e);
+        }
         return "productUserView";
     }
 

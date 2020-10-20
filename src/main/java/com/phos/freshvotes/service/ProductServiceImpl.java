@@ -4,9 +4,14 @@ import com.phos.freshvotes.Entity.Product;
 import com.phos.freshvotes.Entity.User;
 import com.phos.freshvotes.exceptions.ProductServiceException;
 import com.phos.freshvotes.repositories.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +21,8 @@ import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+
+    private Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Autowired
     private ProductRepository productRepository;
@@ -46,12 +53,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProduct(String name) throws ProductServiceException {
 
-        Optional<Product> productOptional = productRepository.findByName(name);
-        if(productOptional.isPresent()){
-            return productOptional.get();
-        }else{
-            throw new ProductServiceException(name +" was not found");
+        try {
+            logger.info("Decoding URL...");
+            String decode = URLDecoder.decode(name, StandardCharsets.UTF_8.name());
+            Optional<Product> productOptional = productRepository.findByName(decode);
+            if(productOptional.isPresent()){
+                logger.info("Product found with name " + productOptional.get().getName());
+                return productOptional.get();
+            }else{
+                throw new ProductServiceException(name +" was not found");
+            }
+        } catch (UnsupportedEncodingException e) {
+            logger.error("Could not decode URL ",e);
         }
+        return new Product();
     }
 
     @Override
