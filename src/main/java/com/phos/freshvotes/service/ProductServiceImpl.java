@@ -40,10 +40,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProduct(Long id) throws ProductServiceException {
-
+        logger.info("Searchign for product with Id " + id);
         Optional<Product> productOptional = productRepository.findById(id);
 
         if(productOptional.isPresent()){
+            logger.info("Product found...");
             return productOptional.get();
         }else{
             throw new ProductServiceException("Product with Id  "+ id +" was not found");
@@ -72,9 +73,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(Long id, Product product) throws ProductServiceException {
         try {
+            logger.info("Attempting product update...");
             Product tempProduct = getProduct(id);
             tempProduct.setName(product.getName());
             tempProduct.setPublished(product.getPublished());
+            logger.info("Product details updating to DB...");
             return productRepository.save(tempProduct);
         } catch (ProductServiceException e) {
             throw new ProductServiceException("Product with Id" + id + " could not be updated");
