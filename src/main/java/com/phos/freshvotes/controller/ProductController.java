@@ -46,7 +46,7 @@ public class ProductController {
         return "product";
     }
 
-    @GetMapping("/products/{name}")
+    @GetMapping("/prod/{name}")
     public String productUserView(Model model, @PathVariable String name) {
         try {
             Product product = productService.getProduct(name);
@@ -54,7 +54,7 @@ public class ProductController {
         } catch (ProductServiceException e) {
             logger.error("Could not find product...", e);
         }
-        return "productUserView";
+        return "productsUserView";
     }
 
     @PostMapping("/products/{id}")
