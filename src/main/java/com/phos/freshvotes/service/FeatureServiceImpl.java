@@ -31,15 +31,23 @@ public class FeatureServiceImpl implements FeatureService {
     @Override
     public Feature createFeature(Long productId) throws ProductServiceException {
         try {
+            logger.info("Creating a new Feature...");
             Product product = productService.getProduct(productId);
-
+            logger.info("Creating feature for product: " + product.getName());
             Feature feature = new Feature();
             feature.setProduct(product);
             product.getFeatures().add(feature);
+            logger.info("Feature created and add to product...");
 
             return featureRepository.save(feature);
         } catch (ProductServiceException e) {
             throw new ProductServiceException("Product with Id" + productId + " could not be updated");
         }
+    }
+
+    @Override
+    public Feature getFeature(Long featureId) {
+
+        return null;
     }
 }

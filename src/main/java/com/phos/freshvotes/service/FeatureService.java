@@ -13,4 +13,6 @@ public interface FeatureService {
     Feature getFeatures();
 
     Feature createFeature(Long productId) throws ProductServiceException;
+
+    Feature getFeature(Long featureId);
 }
