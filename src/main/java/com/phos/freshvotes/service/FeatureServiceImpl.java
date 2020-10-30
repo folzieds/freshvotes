@@ -2,12 +2,15 @@ package com.phos.freshvotes.service;
 
 import com.phos.freshvotes.Entity.Feature;
 import com.phos.freshvotes.Entity.Product;
+import com.phos.freshvotes.exceptions.FeatureServiceException;
 import com.phos.freshvotes.exceptions.ProductServiceException;
 import com.phos.freshvotes.repositories.FeatureRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * Created by Folarin on 13/10/2020
@@ -46,8 +49,14 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     @Override
-    public Feature getFeature(Long featureId) {
+    public Feature getFeature(Long featureId) throws FeatureServiceException {
+        Optional<Feature> feature = featureRepository.findById(featureId);
 
-        return null;
+        if (feature.isPresent()){
+            logger.info("Feature found with Id " + featureId);
+            return feature.get();
+        }else{
+            throw new FeatureServiceException("Could not find feature with Id " + featureId);
+        }
     }
 }
