@@ -12,11 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Created by Folarin on 13/10/2020
  */
 @Controller
+@RequestMapping("/products/{productId}/features")
 public class FeatureController {
 
     Logger logger = LoggerFactory.getLogger(FeatureController.class);
@@ -24,13 +26,13 @@ public class FeatureController {
     @Autowired
     private FeatureService featureService;
 
-    @PostMapping("/products/{productId}/features")
+    @PostMapping("")
     public String createFeature(@PathVariable Long productId) throws ProductServiceException {
         Feature feature = featureService.createFeature(productId);
-        return "redirect:/products/"+productId +"/features/" + feature.getId();
+        return "redirect:/products/"+productId+"/features/" + feature.getId();
     }
 
-    @GetMapping("/products/{productId}/features/{featureId}")
+    @GetMapping("{featureId}")
     public String getFeature(@PathVariable Long productId,@PathVariable Long featureId, Model model){
 
         try {
