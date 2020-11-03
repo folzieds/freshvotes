@@ -3,7 +3,6 @@ package com.phos.freshvotes.service;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Created by Folarin on 04/09/2020
