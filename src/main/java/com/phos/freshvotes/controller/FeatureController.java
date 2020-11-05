@@ -42,4 +42,15 @@ public class FeatureController {
         }
         return "feature";
     }
+
+    @PostMapping("{featureId}")
+    public String updateFeature(@PathVariable Long productId,@PathVariable Long featureId, Model model){
+        try {
+            Feature feature = featureService.updateFeature(featureId);
+            model.addAttribute("feature",feature);
+        } catch (FeatureServiceException e) {
+            logger.error("could not get feature with id" + featureId);
+        }
+        return "redirect:/products/"+productId+"/features/" + featureId;
+    }
 }

@@ -59,4 +59,9 @@ public class FeatureServiceImpl implements FeatureService {
             throw new FeatureServiceException("Could not find feature with Id " + featureId);
         }
     }
+
+    @Override
+    public Feature updateFeature(Long featureId) throws FeatureServiceException {
+        return null;
+    }
 }
