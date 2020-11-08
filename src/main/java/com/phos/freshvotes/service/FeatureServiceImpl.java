@@ -39,6 +39,7 @@ public class FeatureServiceImpl implements FeatureService {
             logger.info("Creating feature for product: " + product.getName());
             Feature feature = new Feature();
             feature.setProduct(product);
+            feature.setStatus("Pending Review");
             product.getFeatures().add(feature);
             logger.info("Feature created and add to product...");
 
@@ -61,7 +62,7 @@ public class FeatureServiceImpl implements FeatureService {
     }
 
     @Override
-    public Feature updateFeature(Long featureId) throws FeatureServiceException {
-        return null;
+    public Feature updateFeature(Feature feature){
+        return featureRepository.save(feature);
     }
 }
